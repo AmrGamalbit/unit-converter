@@ -1,5 +1,15 @@
 const units = {
-  temperature: { base: "", units: {} },
+  temperature: {
+    base: "C",
+    units: {
+      C: { toBase: (v) => v, fromBase: (v) => v },
+      K: { toBase: (v) => v - 273.15, fromBase: (v) => v + 273.15 },
+      F: {
+        toBase: (v) => ((v - 32) * 5) / 9,
+        fromBase: (v) => (v * 9) / 5 + 32,
+      },
+    },
+  },
   length: {
     base: "m",
     units: {
@@ -75,14 +85,31 @@ const toInput = document.getElementById("to-value");
 
 const fromSelect = document.getElementById("from-unit");
 const toSelect = document.getElementById("to-unit");
-const convertFromTo = () =>
-  (toInput.value =
-    (fromInput.value * units[currentCategory].units[fromSelect.value]) /
-    units[currentCategory].units[toSelect.value]);
-const convertToFrom = () =>
-  (fromInput.value =
-    (toInput.value * units[currentCategory].units[toSelect.value]) /
-    units[currentCategory].units[fromSelect.value]);
+const convertFromTo = () => {
+  const value = Number(fromInput.value);
+  if (currentCategory == "temperature") {
+    const celsius = units["temperature"].units[fromSelect.value].toBase(value);
+    toInput.value =
+      units["temperature"].units[toSelect.value].fromBase(celsius);
+  } else {
+    toInput.value =
+      (value * units[currentCategory].units[fromSelect.value]) /
+      units[currentCategory].units[toSelect.value];
+  }
+};
+
+const convertToFrom = () => {
+  const value = Number(toInput.value);
+  if (currentCategory == "temperature") {
+    const celsius = units["temperature"].units[toSelect.value].toBase(value);
+    fromInput.value =
+      units["temperature"].units[fromSelect.value].fromBase(celsius);
+  } else {
+    fromInput.value =
+      (value * units[currentCategory].units[toSelect.value]) /
+      units[currentCategory].units[fromSelect.value];
+  }
+};
 
 fromInput.addEventListener("input", convertFromTo);
 toInput.addEventListener("input", convertToFrom);
