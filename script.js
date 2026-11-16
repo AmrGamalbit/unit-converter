@@ -115,20 +115,21 @@ const funFacts = {
 };
 
 const getRandomFact = (category) => {
-  return funFacts[category][Math.floor(Math.random() * funFacts[category].length)];
+  return funFacts[category][
+    Math.floor(Math.random() * funFacts[category].length)
+  ];
 };
 
-
 const categoryTabs = document.querySelectorAll(".category-tabs button");
-const randomFactParagraph = document.getElementById('fun-fact')
-randomFactParagraph.innerText = getRandomFact('pressure')
+const randomFactParagraph = document.getElementById("fun-fact");
+randomFactParagraph.innerText = getRandomFact("pressure");
 let currentCategory;
 
 categoryTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     categoryTabs.forEach((tab) => tab.classList.remove("active"));
     currentCategory = tab.textContent.toLowerCase();
-    randomFactParagraph.innerText = `${getRandomFact(currentCategory)} !`
+    randomFactParagraph.innerText = `${getRandomFact(currentCategory)} !`;
     updateUnitOptions(tab.textContent.toLowerCase());
     tab.classList.add("active");
   });
@@ -141,7 +142,11 @@ const fromSelect = document.getElementById("from-unit");
 const toSelect = document.getElementById("to-unit");
 
 const convertFromTo = () => {
-  const value = Number(fromInput.value);
+  const value = parseFloat(fromInput.value);
+  if (Number.isNaN(value)) {
+    fromInput.value = "";
+    return;
+  }
   if (currentCategory == "temperature") {
     const celsius = units["temperature"].units[fromSelect.value].toBase(value);
     toInput.value =
@@ -154,8 +159,11 @@ const convertFromTo = () => {
 };
 
 const convertToFrom = () => {
-  const value = Number(toInput.value);
-  if (currentCategory == "temperature") {
+  const value = parseFloat(toInput.value);
+  if (Number.isNaN(value)) {
+    fromInput.value = "";
+    return;
+  }  if (currentCategory == "temperature") {
     const celsius = units["temperature"].units[toSelect.value].toBase(value);
     fromInput.value =
       units["temperature"].units[fromSelect.value].fromBase(celsius);
@@ -182,4 +190,3 @@ const updateUnitOptions = (category) => {
     toSelect.append(option.cloneNode(true));
   });
 };
-
