@@ -40,7 +40,7 @@ h2 {
   cursor: pointer;
 }
 
-.category-tabs button:hover {
+.category-tabs button:hover, .active {
   filter: brightness(140%);
   transform: scale(110%);
 }

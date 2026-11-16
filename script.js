@@ -1,5 +1,5 @@
 const units = {
-  temperature: { base: "" },
+  temperature: { base: "", units: {} },
   length: {
     base: "m",
     units: {
@@ -60,14 +60,35 @@ const units = {
 };
 
 const categoryTabs = document.querySelectorAll(".category-tabs button");
+let currentCategory;
 categoryTabs.forEach((tab) => {
-  tab.addEventListener("click", () =>
-    updateUnitOptions(tab.textContent.toLowerCase()),
-  );
+  tab.addEventListener("click", () => {
+    categoryTabs.forEach((tab) => tab.classList.remove("active"));
+    currentCategory = tab.textContent.toLowerCase();
+    updateUnitOptions(tab.textContent.toLowerCase());
+    tab.classList.add("active");
+  });
 });
+
+const fromInput = document.getElementById("from-value");
+const toInput = document.getElementById("to-value");
 
 const fromSelect = document.getElementById("from-unit");
 const toSelect = document.getElementById("to-unit");
+const convertFromTo = () =>
+  (toInput.value =
+    (fromInput.value * units[currentCategory].units[fromSelect.value]) /
+    units[currentCategory].units[toSelect.value]);
+const convertToFrom = () =>
+  (fromInput.value =
+    (toInput.value * units[currentCategory].units[toSelect.value]) /
+    units[currentCategory].units[fromSelect.value]);
+
+fromInput.addEventListener("input", convertFromTo);
+toInput.addEventListener("input", convertToFrom);
+fromSelect.addEventListener("change", convertFromTo);
+toSelect.addEventListener("change", convertToFrom);
+
 const updateUnitOptions = (category) => {
   fromSelect.replaceChildren();
   toSelect.replaceChildren();
