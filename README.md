@@ -25,7 +25,7 @@ HTML, CSS, and vanilla JavaScript
 - Clone the repo or download the ZIP folder directly from GitHub:
 
   ```bash
-  git clone <repo-url>
+  git clone https://github.com/AmrGamalbit/unit-converter
   ```
 
 - Open the project folder on your device.
