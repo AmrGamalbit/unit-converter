@@ -40,15 +40,18 @@ h2 {
   cursor: pointer;
 }
 
-.category-tabs button:hover, .active {
+.category-tabs button:hover,
+.active {
   filter: brightness(140%);
   transform: scale(110%);
 }
 
 .converter {
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   margin-top: 80px;
+  gap: 50px;
 }
 
 .field-group {
@@ -91,7 +94,7 @@ h2 {
   font-weight: 500;
   border-radius: 8px;
   appearance: base-select;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .input-row select option {
@@ -107,4 +110,10 @@ h2 {
   border: none;
   border-radius: 10px;
   padding: 12px;
+}
+
+@media (min-width: 768px) {
+  .converter {
+    flex-direction: row;
+  }
 }
