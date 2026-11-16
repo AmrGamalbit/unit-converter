@@ -90,7 +90,21 @@ h2 {
   padding: 10px 12px;
   font-weight: 500;
   border-radius: 8px;
-  appearance: none;
-    -webkit-appearance: none;
+  appearance: base-select;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
+.input-row select option {
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.1s ease-in-out;
+}
+
+.input-row select::picker(select) {
+  appearance: base-select;
+  background-color: #003459;
+  color: #00a8e8;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
 }
