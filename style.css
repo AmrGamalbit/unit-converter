@@ -112,6 +112,26 @@ h2 {
   padding: 12px;
 }
 
+.fact-container {
+  margin: 50px;
+  background-color: #003459;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.fact-container h3 {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#fun-fact {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (min-width: 768px) {
   .converter {
     flex-direction: row;

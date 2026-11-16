@@ -69,12 +69,66 @@ const units = {
   },
 };
 
+const funFacts = {
+  temperature: [
+    "Water boils at 100 °C at sea level, but only about 70 °C at the top of Mount Everest.",
+    "-40 is the one temperature where Celsius and Fahrenheit are equal.",
+    "Absolute zero (0 K, or -273.15 °C) is the coldest temperature possible.",
+    "The surface of the Sun is about 5,500 °C.",
+    "Normal human body temperature is about 37 °C (98.6 °F).",
+  ],
+  length: [
+    "Light travels about 300,000 km in one second.",
+    "The Moon is about 384,400 km from Earth.",
+    "One mile is exactly 1,609.344 meters.",
+    "The Earth's equator is about 40,075 km around.",
+    "A nanometer is about 100,000 times thinner than a human hair.",
+  ],
+  mass: [
+    "A paperclip weighs about 1 gram.",
+    "An average adult blue whale weighs around 100 to 150 tonnes.",
+    "The kilogram is now defined using a fixed value of the Planck constant, not a metal cylinder.",
+    "A liter of water has a mass of about 1 kilogram.",
+    "On the Moon you'd weigh about one sixth of your weight on Earth, but your mass stays the same.",
+  ],
+  speed: [
+    "Sound travels at about 343 m/s in air at room temperature.",
+    "The fastest land animal, the cheetah, can reach about 100 km/h.",
+    "A knot is one nautical mile per hour, used by ships and aircraft.",
+    "The International Space Station moves at about 28,000 km/h.",
+    "Nothing with mass can reach the speed of light, about 299,792,458 m/s.",
+  ],
+  energy: [
+    "One food Calorie is actually 1 kilocalorie, or 4,184 joules.",
+    "A single lightning bolt can carry around 1 billion joules.",
+    "A 100 W light bulb uses 0.1 kWh of energy every hour.",
+    "Burning one gram of fat releases about 9 kcal, more than double a gram of carbs.",
+    "One BTU is roughly the energy released by burning a single wooden match.",
+  ],
+  pressure: [
+    "Standard atmospheric pressure at sea level is 1 atm, or 101,325 Pa.",
+    "Blood pressure is measured in mmHg, and 120/80 is a typical healthy reading.",
+    "Pressure at the bottom of the Mariana Trench is over 1,000 times atmospheric pressure.",
+    "Car tires are usually inflated to about 32 psi.",
+    "Pressure drops as you climb, which is why your ears pop on a plane.",
+  ],
+};
+
+const getRandomFact = (category) => {
+  return funFacts[category][Math.floor(Math.random() * funFacts[category].length)];
+};
+
+
 const categoryTabs = document.querySelectorAll(".category-tabs button");
+const randomFactParagraph = document.getElementById('fun-fact')
+randomFactParagraph.innerText = getRandomFact('pressure')
 let currentCategory;
+
 categoryTabs.forEach((tab) => {
   tab.addEventListener("click", () => {
     categoryTabs.forEach((tab) => tab.classList.remove("active"));
     currentCategory = tab.textContent.toLowerCase();
+    randomFactParagraph.innerText = `${getRandomFact(currentCategory)} !`
     updateUnitOptions(tab.textContent.toLowerCase());
     tab.classList.add("active");
   });
@@ -85,6 +139,7 @@ const toInput = document.getElementById("to-value");
 
 const fromSelect = document.getElementById("from-unit");
 const toSelect = document.getElementById("to-unit");
+
 const convertFromTo = () => {
   const value = Number(fromInput.value);
   if (currentCategory == "temperature") {
@@ -127,3 +182,4 @@ const updateUnitOptions = (category) => {
     toSelect.append(option.cloneNode(true));
   });
 };
+
